@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background-color: #e0e0e0;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 25px;
+      background-color: #fff;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #444;
+    }
+
+    .buttons {
+      margin-top: 25px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      margin: 8px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .btn:disabled {
+      background-color: #b0b0b0;
+      cursor: not-allowed;
+    }
+
+    .btn:not(:disabled):hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Cart Management</h1>
+    <div class="buttons">
+      <p>Get Started with Shopping!</p>
+      <p>Current Amount: <span id="count">0</span></p>
+      <button id="cart-button" class="btn">Add to Cart</button>
+      <button id="add-quantity" class="btn">Add</button>
+      <button id="subtract-quantity" class="btn">Remove</button>
+      <button id="clear-cart" class="btn">Clear</button>
+    </div>
+  </div>
+
+  <script>
+    let count = 0;
+
+    const countElement = document.getElementById('count');
+    const addButton = document.getElementById('cart-button');
+    const increaseButton = document.getElementById('add-quantity');
+    const decreaseButton = document.getElementById('subtract-quantity');
+    const resetButton = document.getElementById('clear-cart');
+
+    function updateUI() {
+      countElement.textContent = count;
+      console.log(Current count: ${count});  // Log the current count
+
+      // Enable/disable buttons based on the count
+      increaseButton.disabled = count === 0 && !addButton.disabled;
+      decreaseButton.disabled = count === 0;
+      resetButton.disabled = count === 0;
+      
+      // Log button states
+      console.log(Add to Cart Button Disabled: ${addButton.disabled});
+      console.log(Increase Quantity Button Disabled: ${increaseButton.disabled});
+      console.log(Decrease Quantity Button Disabled: ${decreaseButton.disabled});
+      console.log(Reset Button Disabled: ${resetButton.disabled});
+    }
+
+    addButton.addEventListener('click', () => {
+      count = 1;
+      addButton.disabled = true;
+      increaseButton.disabled = false;
+      resetButton.disabled = false;
+      updateUI();
+    });
+
+    increaseButton.addEventListener('click', () => {
+      count++;
+      updateUI();
+    });
+
+    decreaseButton.addEventListener('click', () => {
+      if (count > 0) count--;
+      updateUI();
+    });
+
+    resetButton.addEventListener('click', () => {
+      count = 0;
+      addButton.disabled = false;
+      updateUI();
+    });
+
+    updateUI();
+  </script>
+</body>
+</html>
